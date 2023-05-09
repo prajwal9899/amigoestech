@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import banner from "../assets/banner-img.png";
 import About from "./About";
+import Project from "./Project";
 import Services from "./Services";
+import axios from "axios";
 
 const Home = () => {
+  useEffect(() => {
+    axios.get('https://demoapi-m1en.onrender.com').then((res) => {
+      console.log(res.data, 'res');
+    }).catch((err) => {
+      console.log(err);
+
+    })
+  }, [])
+
   return (
     <div>
       <div className="header_section">
@@ -34,6 +45,7 @@ const Home = () => {
       </div>
       <About />
       <Services />
+      <Project />
     </div>
   );
 };
