@@ -15,6 +15,8 @@ import Sidebar from "./pages/Dashboard/Sidebar/Sidebar";
 import UploadData from "./components/uploadData/UploadData";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import SearchDefaulters from "./pages/Dashboard/SearchDefaulters";
+import PublicRoutes from "./components/routes/PublicRoutes";
+import ProtectedRoutes from "./components/routes/ProtectedRoutes";
 
 function App() {
   return (
@@ -32,16 +34,21 @@ function App() {
     //     <Route path="/contact" element={<Contact />} />
     //   </Routes> */}
     //   {/* <Footer /> */}
+    // 8319106795
+    // sadushst
+
     // </BrowserRouter>
     <BrowserRouter>
       <Routes >
-        <Route element={<DashboardLayout />} >
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/upload" element={<UploadData />} />
-          <Route path="/search" element={<SearchDefaulters />} />
+        <Route element={<ProtectedRoutes><DashboardLayout /></ProtectedRoutes>} >
+          <Route path="/" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
+          <Route path="/upload" element={<ProtectedRoutes><UploadData /></ProtectedRoutes>} />
+          <Route path="/search" element={<ProtectedRoutes><SearchDefaulters /></ProtectedRoutes>} />
         </Route>
+        <Route path="/login" element={<PublicRoutes><Login /></PublicRoutes>} />
+        <Route path="/register" element={<PublicRoutes><Register /></PublicRoutes>} />
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 

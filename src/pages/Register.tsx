@@ -48,7 +48,7 @@ const Register = () => {
             branchCode: userDetails.branchCode,
             branchAddress: userDetails.branchAddress
         }
-        const res = axios.post('http://localhost:8080/api/register', newUserdetails).then((res) => {
+        const res = axios.post('http://localhost:8000/api/register', newUserdetails).then((res) => {
             console.log(res);
             setUserDetails({
                 fullName: '',
@@ -61,7 +61,9 @@ const Register = () => {
                 branchCode: "",
                 branchAddress: ""
             })
+            if(res.data.status !== "failed"){
             navigate('/login')
+            }
         }).catch((err) => {
             console.log(err);
         })

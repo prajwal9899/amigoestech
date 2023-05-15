@@ -1,8 +1,13 @@
 import '../styles/Login.scss'
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
+
+
+    const navigate = useNavigate();
     const [user, setUser] = useState({
         email: '',
         password: "",
@@ -15,18 +20,19 @@ const Login = () => {
 
     const submitForm = (e: any) => {
         e.preventDefault()
-
         const newUserdetails = {
             email: user.email,
             password: user.password,
             registartionNo: user.registartionNo
         }
-        const res = axios.post('http://localhost:8080/api/login', newUserdetails).then((res) => {
+        const res = axios.post('http://localhost:8000/api/login', newUserdetails).then((res) => {
             console.log(res);
             if (res.data.status === 'Success') {
                 setUser({
                     email: "", password: "", registartionNo: "",
                 })
+                localStorage.setItem("token", res.data.token);
+                navigate("/");
             }
         }).catch((err) => {
             console.log(err);
@@ -49,9 +55,9 @@ const Login = () => {
                     </div>
                     <div className="form">
                         <form action="" onSubmit={submitForm}>
-                            <input type="email" name='email' value={email} onChange={(event) => handleInput(event)} />
-                            <input type="password" name='password' value={password} onChange={(event) => handleInput(event)} />
-                            <input type="number" name='registartionNo' value={registartionNo} onChange={(event) => handleInput(event)} />
+                            <input placeholder='email' type="email" name='email' value={email} onChange={(event) => handleInput(event)} />
+                            <input placeholder='password' type="password" name='password' value={password} onChange={(event) => handleInput(event)} />
+                            <input placeholder='' type="number" name='registartionNo' value={registartionNo} onChange={(event) => handleInput(event)} />
                             <input type="submit" />
                         </form>
                     </div>
